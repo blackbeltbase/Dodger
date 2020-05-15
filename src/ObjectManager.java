@@ -1,0 +1,108 @@
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class ObjectManager implements ActionListener {
+	Player player;
+	int score = 0;
+	int currentState;
+	ArrayList<Lasers> lasers = new ArrayList<Lasers>();
+
+	public ObjectManager(Player player, int currentState) {
+		this.player = player;
+		this.currentState = currentState;
+	}
+
+	public int getCurrentState() {
+		return currentState;
+	}
+
+	void changeCurrentState(int currentState) {
+		this.currentState = currentState;
+	}
+
+	void addLaser() {
+		Random random = new Random();
+		lasers.add(new Lasers(random.nextInt(Dodger.WIDTH), Dodger.HEIGHT, 10, 20, currentState));
+	}
+
+	void draw(Graphics g) {
+		player.draw(g);
+		for (Lasers s : lasers) {
+			s.draw(g);
+		}
+	}
+
+	void purgeObjects() {
+		for (int i = 0; i < lasers.size(); i++) {
+			if (lasers.get(i).isActive == false) {
+				score++;
+				lasers.remove(i);
+			}
+		}
+
+	}
+
+	int getScore() {
+		return score;
+	}
+
+	void update() {
+		if (player.isActive) {
+			player.update();
+
+			for (Lasers s : lasers) {
+				s.update();
+				if (s.y > Dodger.HEIGHT || s.y < 0 || s.x > Dodger.WIDTH || s.x < 0) {
+					s.isActive = false;
+				}
+			}
+		}
+		if (currentState == 5) {
+			for (Lasers s : lasers) {
+				s.isActive = false;
+			}
+		}
+		checkCollision();
+		purgeObjects();
+	}
+
+	void checkCollision() {
+		for (int i = 0; i < lasers.size(); i++) {
+			if (player.collisionBox.intersects(lasers.get(i).collisionBox)) {
+				player.isActive = false;
+				System.out.println("player destroyed");
+
+			}
+		}
+	}
+
+	void activateInvincibility() {
+		player.collisionBox.setBounds(900, 900, 1, 1);
+	}
+
+	void deactivateInvincibility() {
+		player.collisionBox.setBounds(player.x, player.y, player.width, player.height);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(currentState == 2) {
+			for(int i = 0; i<5; i++) {
+				addLaser();
+			}
+		}
+		else if(currentState == 3) {
+			for(int i = 0; i<10; i++) {
+				addLaser();
+			}
+		}
+		else if(currentState == 4) {
+			for(int i = 0; i<15; i++) {
+				addLaser();
+			}
+		}
+	}
+}
