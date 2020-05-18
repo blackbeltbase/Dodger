@@ -432,20 +432,32 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (player.y >= 10) {
 				up = true;
 			}
+			else {
+				up = false;
+			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 			if (player.y < Dodger.HEIGHT - 100) {
 				down = true;
+			}
+			else {
+				down = false;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 			if (player.x < Dodger.WIDTH - 70) {
 				right = true;
 			}
+			else {
+				right = false;
+			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 			if (player.x >= 10) {
 				left = true;
+			}
+			else {
+				left = false;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_1 && currentState == AVATARSELECT) {
