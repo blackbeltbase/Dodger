@@ -236,7 +236,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			g.drawString("Congrats!", 350, 350);
 			setFont(otherFont);
 			g.drawString("You escaped the trap with a score of " + score + " points!", 10, 400);
-			g.setFont(otherFont);
 			g.drawString("Press ENTER to restart", 350, 450);
 		}
 	}

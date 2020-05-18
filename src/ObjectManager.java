@@ -25,7 +25,8 @@ public class ObjectManager implements ActionListener {
 
 	void addLaser() {
 		Random random = new Random();
-		lasers.add(new Lasers(random.nextInt(Dodger.WIDTH), Dodger.HEIGHT, 10, 20, currentState));
+//		lasers.add(new Lasers(random.nextInt(Dodger.WIDTH), Dodger.HEIGHT, 10, 20, currentState));
+		lasers.add(new Lasers(0, Dodger.HEIGHT, 10, 20, currentState));
 	}
 
 	void draw(Graphics g) {
