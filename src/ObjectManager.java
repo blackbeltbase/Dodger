@@ -25,8 +25,7 @@ public class ObjectManager implements ActionListener {
 
 	void addLaser() {
 		Random random = new Random();
-//		lasers.add(new Lasers(random.nextInt(Dodger.WIDTH), Dodger.HEIGHT, 10, 20, currentState));
-		lasers.add(new Lasers(0, Dodger.HEIGHT, 10, 20, currentState));
+		lasers.add(new Lasers(random.nextInt(Dodger.WIDTH), Dodger.HEIGHT, 10, 20, currentState));
 	}
 
 	void draw(Graphics g) {
@@ -90,18 +89,16 @@ public class ObjectManager implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(currentState == 2) {
-			for(int i = 0; i<5; i++) {
+		if (currentState == 2) {
+			for (int i = 0; i < 5; i++) {
 				addLaser();
 			}
-		}
-		else if(currentState == 3) {
-			for(int i = 0; i<10; i++) {
+		} else if (currentState == 3) {
+			for (int i = 0; i < 10; i++) {
 				addLaser();
 			}
-		}
-		else if(currentState == 4) {
-			for(int i = 0; i<15; i++) {
+		} else if (currentState == 4) {
+			for (int i = 0; i < 15; i++) {
 				addLaser();
 			}
 		}

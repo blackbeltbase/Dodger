@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Timer frameDraw;
 	Player player;
 	int score = 0;
+	Font endFont;
 	boolean invincible = false;
 	boolean avatarSelected = false;
 	public static BufferedImage image;
@@ -41,6 +42,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public GamePanel() {
+		endFont = new Font("Arial", Font.PLAIN, 24);
 		player = new Player(400, 400, 30, 30);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		otherFont = new Font("Arial", Font.PLAIN, 24);
@@ -222,10 +224,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			g.fillRect(30, 30, Dodger.WIDTH - 80, Dodger.HEIGHT - 80);
 			g.setFont(titleFont);
 			g.setColor(Color.RED);
-			g.drawString("Game Over!", 300, 350);
-			g.drawString("Your score was: " + score, 250, 400);
+			g.drawString("Game Over!", 250, 350);
+			g.drawString("Your score was: " + score, 150, 400);
 			g.setFont(otherFont);
-			g.drawString("Press ENTER to restart", 350, 450);
+			g.drawString("Press ENTER to restart", 270, 450);
 		} else if (score > 300) {
 			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, Dodger.WIDTH, Dodger.HEIGHT);
@@ -233,10 +235,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			g.fillRect(30, 30, Dodger.WIDTH - 80, Dodger.HEIGHT - 80);
 			g.setFont(titleFont);
 			g.setColor(Color.GREEN);
-			g.drawString("Congrats!", 350, 350);
-			setFont(otherFont);
-			g.drawString("You escaped the trap with a score of " + score + " points!", 10, 400);
-			g.drawString("Press ENTER to restart", 350, 450);
+			g.drawString("Congrats!", 250, 350);
+			setFont(endFont);
+			g.drawString("You escaped the trap and won", 50, 400);
+			g.drawString("with a score of " + score + " points!", 90, 450);
+			g.drawString("Press ENTER to restart", 150, 500);
 		}
 	}
 
