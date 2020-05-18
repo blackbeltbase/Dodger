@@ -333,10 +333,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if(avatarSelected == false) {
 			if (currentState == END) {
 				laserSpawn.stop();
 				player = new Player(400, 400, 30, 30);
 				microManager = new ObjectManager(player, currentState);
+				down = false;
+				up = false;
+				right = false;
+				left = false;
 				System.out.println("reset");
 			}
 			if (currentState == END) {
@@ -363,6 +368,43 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			if (currentState == LEVEL1 || currentState == LEVEL2 || currentState == LEVEL3) {
 				startGame();
+			}
+			}
+			else {
+				if (currentState == END) {
+					laserSpawn.stop();
+					player = new Player(400, 400, 30, 30);
+					microManager = new ObjectManager(player, currentState);
+					System.out.println("reset");
+				}
+				if (currentState == END) {
+					laserSpawn.stop();
+					currentState = MENU;
+				} else if (currentState == LEVEL1) {
+					if (score > 50) {
+						currentState = LEVEL2;
+					} else {
+						currentState = END;
+						laserSpawn.stop();
+					}
+				} else if (currentState == LEVEL2) {
+					if (score > 150) {
+						currentState = LEVEL3;
+					} else {
+						currentState = END;
+						laserSpawn.stop();
+					}
+				} else if (currentState == LEVEL3) {
+					currentState = END;
+				} else if(currentState == MENU){
+					currentState = LEVEL1;
+				}
+				else {
+					currentState++;
+				}
+				if (currentState == LEVEL1 || currentState == LEVEL2 || currentState == LEVEL3) {
+					startGame();
+				}
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_E) {
