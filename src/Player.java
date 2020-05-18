@@ -75,7 +75,6 @@ Color getColor() {
 	
 }
 	void up() {
-		
 		y -= speed;
 	}
 

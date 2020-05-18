@@ -22,6 +22,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int INSTRUX = 6;
 	public int currentState = MENU;
 	ObjectManager microManager;
+	boolean up = false;
+	boolean down = false;
+	boolean right = false;
+	boolean left = false;
 	Timer laserSpawn;
 	Font titleFont;
 	Font otherFont;
@@ -302,6 +306,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (currentState == INSTRUX) {
 			updateInstrux();
 		}
+		if(up) {
+			player.up();
+		}
+		if(down) {
+			player.down();
+		}
+		if(right) {
+			player.right();;
+		}
+		if(left) {
+			player.left();
+		}
 		score = microManager.getScore();
 		repaint();
 	}
@@ -372,22 +388,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
 			if (player.y >= 10) {
-				player.up();
+				up = true;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
 			if (player.y < Dodger.HEIGHT - 100) {
-				player.down();
+				down = true;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 			if (player.x < Dodger.WIDTH - 70) {
-				player.right();
+				right = true;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
 			if (player.x >= 10) {
-				player.left();
+				left = true;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_1 && currentState == AVATARSELECT) {
@@ -410,6 +426,26 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+			if (player.y >= 10) {
+				up = false;
+			}
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+			if (player.y < Dodger.HEIGHT - 100) {
+				down =false;
+			}
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+			if (player.x < Dodger.WIDTH - 70) {
+				right = false;
+			}
+		}
+		if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+			if (player.x >= 10) {
+				left = false;
+			}
+		}
 	}
 
 	void loadImage(String imageFile) {
