@@ -39,13 +39,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
 	int whichAvatar;
-
+	int takeNumber;
 	void startGame() {
 		laserSpawn = new Timer(1500, microManager);
 		laserSpawn.start();
 	}
 
 	public GamePanel() {
+		takeNumber = 0;
 		endFont = new Font("Arial", Font.PLAIN, 24);
 		player = new Player(400, 400, 30, 30);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
@@ -218,6 +219,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("When you are ready to move on to the next level, press ENTER.", 50, 520);
 		g.drawString("You increase your score by dodging the lasers that appear in the trap!", 20, 550);
 		g.drawString("Use ARROW KEYS or WASD to dodge the lasers!", 200, 580);
+		g.drawString("Press SPACE to go back to the menu.", 200, 620);
 	}
 
 	void drawEndState(Graphics g) {
@@ -338,6 +340,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				laserSpawn.stop();
 				player = new Player(400, 400, 30, 30);
 				microManager = new ObjectManager(player, currentState);
+				takeNumber++;
 				down = false;
 				up = false;
 				right = false;

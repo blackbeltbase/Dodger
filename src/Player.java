@@ -13,7 +13,7 @@ boolean avatarSelected;
 Random ran = new Random();
 	public Player(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		speed = 6;
+		speed = 4;
 	}
 
 	void setAvatar(int avatarNumber) {
