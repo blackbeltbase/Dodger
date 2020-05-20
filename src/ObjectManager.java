@@ -27,7 +27,20 @@ public class ObjectManager implements ActionListener {
 		Random random = new Random();
 		lasers.add(new Lasers(random.nextInt(Dodger.WIDTH), Dodger.HEIGHT, 10, 20, currentState));
 	}
-
+int getProgress(int currentState) {
+	if(currentState == 2) {
+		return score/50;
+	}
+	else if(currentState ==3) {
+		return score/150;
+	}
+	else if(currentState == 4) {
+		return score/300;
+	}
+	else {
+		return 0;
+	}
+}
 	void draw(Graphics g) {
 		player.draw(g);
 		for (Lasers s : lasers) {

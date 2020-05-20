@@ -33,6 +33,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Player player;
 	int score = 0;
 	Font endFont;
+	double progressLevel1 = (int)score/50;
+	double progressLevel2 = score/150;
+	double progressLevel3 = score/300;
 	boolean invincible = false;
 	boolean avatarSelected = false;
 	public static BufferedImage image;
@@ -161,6 +164,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		String score = Integer.toString(getScore);
 		g.drawString("Score: " + score, 30, 30);
 		g.drawString("Level 1", 350, 430);
+//		int getProgress = microManager.getProgress(currentState);
+//		String stringProgress = Double.toString(progressLevel1);
+		g.drawString("Progress to Level 2: "+progressLevel1+"%", 30, 60);
+		g.setColor(Color.GREEN);
+		int progress = (int)progressLevel1 *100;
+		g.fillRect(30, 80, progress*2, 30);
 		microManager.draw(g);
 	}
 
@@ -264,6 +273,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (score > 50) {
 			currentState = LEVEL2;
 		}
+		progressLevel1 = score/50;
+		progressLevel2 = score/150;
+		progressLevel3 = score/300;
 		microManager.update();
 	}
 
@@ -275,6 +287,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (score > 150) {
 			currentState = LEVEL3;
 		}
+		progressLevel1 = score/50;
+		progressLevel2 = score/150;
+		progressLevel3 = score/300;
 		microManager.update();
 	}
 
@@ -285,12 +300,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (score > 300) {
 			currentState = END;
 		}
+		progressLevel1 = score/50;
+		progressLevel2 = score/150;
+		progressLevel3 = score/300;
 		microManager.update();
 	}
 
 	void updateEndState() {
 	}
-
+void updateProgress() {
+	progressLevel1 = score/50;
+	progressLevel2 = score/150;
+	progressLevel3 = score/300;
+}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (currentState == MENU) {
@@ -321,6 +343,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			player.left();
 		}
 		score = microManager.getScore();
+		progressLevel1 = score/50;
+		progressLevel2 = score/150;
+		progressLevel3 = score/300;
+		updateProgress();
+		System.out.println(progressLevel1);
 		repaint();
 	}
 
@@ -484,24 +511,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
-			if (player.y >= 10) {
 				up = false;
-			}
+			
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
-			if (player.y < Dodger.HEIGHT - 100) {
 				down =false;
-			}
+		
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
-			if (player.x < Dodger.WIDTH - 70) {
 				right = false;
-			}
+
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
-			if (player.x >= 10) {
 				left = false;
-			}
 		}
 	}
 
