@@ -33,9 +33,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Player player;
 	int score = 0;
 	Font endFont;
-	double progressLevel1 = (int)score/50;
-	double progressLevel2 = score/150;
-	double progressLevel3 = score/300;
 	boolean invincible = false;
 	boolean avatarSelected = false;
 	public static BufferedImage image;
@@ -164,12 +161,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		String score = Integer.toString(getScore);
 		g.drawString("Score: " + score, 30, 30);
 		g.drawString("Level 1", 350, 430);
-//		int getProgress = microManager.getProgress(currentState);
-//		String stringProgress = Double.toString(progressLevel1);
-		g.drawString("Progress to Level 2: "+progressLevel1+"%", 30, 60);
+		g.drawString("Progress to Level 2: "+this.score*2+"%", 30, 60);
+		g.setColor(Color.BLACK);
+		g.fillRect(30,75,710,40);
 		g.setColor(Color.GREEN);
-		int progress = (int)progressLevel1 *100;
-		g.fillRect(30, 80, progress*2, 30);
+		g.fillRect(35, 80, this.score*3, 30);
+		g.setColor(Color.BLUE);
+		g.fillRect(180,80,10,30);
+		g.fillRect(330,80,10,30);
+		g.fillRect(725,80,10,30);
 		microManager.draw(g);
 	}
 
@@ -191,6 +191,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		String score = Integer.toString(getScore);
 		g.drawString("Level 2", 350, 430);
 		g.drawString("Score: " + score, 30, 30);
+		g.drawString("Progress to Level 3: "+this.score+"%", 30, 60);
+		g.setColor(Color.BLACK);
+		g.fillRect(30,75,710,40);
+		g.setColor(Color.GREEN);
+		g.fillRect(35, 80, this.score*3, 30);
+		g.setColor(Color.BLUE);
+		g.fillRect(180,80,10,30);
+		g.fillRect(330,80,10,30);
+		g.fillRect(725,80,10,30);
 		microManager.draw(g);
 	}
 
@@ -210,6 +219,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		String score = Integer.toString(getScore);
 		g.drawString("Level 3", 350, 430);
 		g.drawString("Score: " + score, 30, 30);
+		g.drawString("Progress to win! : "+(int) this.score/3+"%", 30, 60);
+		g.setColor(Color.BLACK);
+		g.fillRect(30,75,710,40);
+		g.setColor(Color.GREEN);
+		g.fillRect(35, 80, this.score*3-200, 30);
+		g.setColor(Color.BLACK);
+		g.setColor(Color.BLUE);
+		g.fillRect(35,80,10,30);
+		g.fillRect(725,80,10,30);
 		microManager.draw(g);
 	}
 
@@ -223,7 +241,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("You have been put in a dangerous trap!", 200, 200);
 		g.drawString("Your chances of survival increase as your score increases!", 125, 400);
 		g.drawString("When you hit 50 points in level 1, you move on to level 2.", 50, 430);
-		g.drawString("When you hit 150 points in level 2, you move on to level 3.", 50, 460);
+		g.drawString("When you hit 100 points in level 2, you move on to level 3.", 50, 460);
 		g.drawString("When you hit 300 points in level 3, you finally escape!", 50, 490);
 		g.drawString("When you are ready to move on to the next level, press ENTER.", 50, 520);
 		g.drawString("You increase your score by dodging the lasers that appear in the trap!", 20, 550);
@@ -270,12 +288,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			currentState = END;
 		}
 
-		if (score > 50) {
+		if (score >= 50) {
 			currentState = LEVEL2;
 		}
-		progressLevel1 = score/50;
-		progressLevel2 = score/150;
-		progressLevel3 = score/300;
 		microManager.update();
 	}
 
@@ -284,12 +299,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			currentState = END;
 		}
 
-		if (score > 150) {
+		if (score >= 100) {
 			currentState = LEVEL3;
 		}
-		progressLevel1 = score/50;
-		progressLevel2 = score/150;
-		progressLevel3 = score/300;
 		microManager.update();
 	}
 
@@ -300,19 +312,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (score > 300) {
 			currentState = END;
 		}
-		progressLevel1 = score/50;
-		progressLevel2 = score/150;
-		progressLevel3 = score/300;
 		microManager.update();
 	}
 
 	void updateEndState() {
 	}
-void updateProgress() {
-	progressLevel1 = score/50;
-	progressLevel2 = score/150;
-	progressLevel3 = score/300;
-}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (currentState == MENU) {
@@ -343,11 +347,6 @@ void updateProgress() {
 			player.left();
 		}
 		score = microManager.getScore();
-		progressLevel1 = score/50;
-		progressLevel2 = score/150;
-		progressLevel3 = score/300;
-		updateProgress();
-		System.out.println(progressLevel1);
 		repaint();
 	}
 
@@ -372,7 +371,6 @@ void updateProgress() {
 				up = false;
 				right = false;
 				left = false;
-				System.out.println("reset");
 			}
 			if (currentState == END) {
 				laserSpawn.stop();
@@ -438,7 +436,6 @@ void updateProgress() {
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_E) {
-			System.out.println("invincible");
 			if (invincible == false) {
 				invincible = true;
 			} else {

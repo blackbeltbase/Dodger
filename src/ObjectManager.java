@@ -9,7 +9,7 @@ public class ObjectManager implements ActionListener {
 	int score = 0;
 	int currentState;
 	ArrayList<Lasers> lasers = new ArrayList<Lasers>();
-
+	boolean isInvincible = false;
 	public ObjectManager(Player player, int currentState) {
 		this.player = player;
 		this.currentState = currentState;
@@ -24,8 +24,11 @@ public class ObjectManager implements ActionListener {
 	}
 
 	void addLaser() {
+		if(isInvincible == false) {
 		Random random = new Random();
-		lasers.add(new Lasers(random.nextInt(Dodger.WIDTH), Dodger.HEIGHT, 10, 20, currentState));
+		lasers.add(new Lasers(random.nextInt(Dodger.WIDTH), Dodger.HEIGHT, 10, 20, currentState));}
+	else if(isInvincible) {
+		lasers.add(new Lasers(0, Dodger.HEIGHT, 10, 20, currentState));}
 	}
 int getProgress(int currentState) {
 	if(currentState == 2) {
@@ -86,18 +89,17 @@ int getProgress(int currentState) {
 		for (int i = 0; i < lasers.size(); i++) {
 			if (player.collisionBox.intersects(lasers.get(i).collisionBox)) {
 				player.isActive = false;
-				System.out.println("player destroyed");
 
 			}
 		}
 	}
 
 	void activateInvincibility() {
-		player.collisionBox.setBounds(900, 900, 1, 1);
+		isInvincible = true;
 	}
 
 	void deactivateInvincibility() {
-		player.collisionBox.setBounds(player.x, player.y, player.width, player.height);
+		isInvincible = false;
 	}
 
 	@Override
