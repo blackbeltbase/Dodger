@@ -117,17 +117,6 @@ int getProgress(int currentState) {
 				addLaser();
 			}
 		}
-		addLaser();
-		addLaser();
-		addLaser();
-		addLaser();
-		addLaser();
-		addLaser();
-		addLaser();
-		addLaser();
-		addLaser();
-		addLaser();
-		addLaser();
 		
 	}
 }
