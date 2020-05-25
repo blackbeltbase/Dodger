@@ -163,13 +163,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Level 1", 350, 430);
 		g.drawString("Progress to Level 2: "+this.score*2+"%", 30, 60);
 		g.setColor(Color.BLACK);
-		g.fillRect(30,75,710,40);
+		g.fillRect(30,75,630,40);
 		g.setColor(Color.GREEN);
 		g.fillRect(35, 80, this.score*3, 30);
 		g.setColor(Color.BLUE);
 		g.fillRect(180,80,10,30);
 		g.fillRect(330,80,10,30);
-		g.fillRect(725,80,10,30);
+		g.fillRect(640,80,10,30);
 		microManager.draw(g);
 	}
 
@@ -193,13 +193,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Score: " + score, 30, 30);
 		g.drawString("Progress to Level 3: "+this.score+"%", 30, 60);
 		g.setColor(Color.BLACK);
-		g.fillRect(30,75,710,40);
+		g.fillRect(30,75,630,40);
 		g.setColor(Color.GREEN);
 		g.fillRect(35, 80, this.score*3, 30);
 		g.setColor(Color.BLUE);
 		g.fillRect(180,80,10,30);
 		g.fillRect(330,80,10,30);
-		g.fillRect(725,80,10,30);
+		g.fillRect(640,80,10,30);
 		microManager.draw(g);
 	}
 
@@ -221,13 +221,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Score: " + score, 30, 30);
 		g.drawString("Progress to win! : "+(int) this.score/3+"%", 30, 60);
 		g.setColor(Color.BLACK);
-		g.fillRect(30,75,710,40);
+		g.fillRect(30,75,630,40);
 		g.setColor(Color.GREEN);
-		g.fillRect(35, 80, this.score*3-200, 30);
-		g.setColor(Color.BLACK);
+		g.fillRect(35, 80, (int) this.score/3+500, 30);
 		g.setColor(Color.BLUE);
-		g.fillRect(35,80,10,30);
-		g.fillRect(725,80,10,30);
+		g.fillRect(180,80,10,30);
+		g.fillRect(330,80,10,30);
+		g.fillRect(640,80,10,30);
 		microManager.draw(g);
 	}
 
